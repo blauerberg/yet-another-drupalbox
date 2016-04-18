@@ -2,6 +2,14 @@
 - stat: path={{ drupal_root_path }}/index.php
   register: drupal
 
+- stat: path={{ drupal_root_path }}/index.php
+  register: parent_dir
+
+- name: Create root directory for drupal.
+  file: path={{ drupal_root_path }} state=directory owner=nginx group=nginx mode=0755
+  when: not parent_dir.stat.exists
+  become: yes
+
 - name: Check if site is already installed.
   command: >
     {{ drush_path }} status bootstrap
