@@ -27,8 +27,6 @@ vagrant_vm_memory: 1024
 
 # DigitalOcean droplet configuration
 digitalocean_box_url: 'https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box'
-digitalocean_ssh_key_name: <%= ENV['DIGITALOCEAN_SSH_KEY_NAME'] %>
-digitalocean_token: <%= ENV['DIGITALOCEAN_TOKEN'] %>
 digitalocean_image: 'centos-7-0-x64'
 digitalocean_region: 'sgp1'
 digitalocean_size: '512mb'

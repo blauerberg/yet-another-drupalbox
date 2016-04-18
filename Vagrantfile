@@ -74,8 +74,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define vconfig[:vagrant_machine_name] do |droplet|
     droplet.vm.provider :digital_ocean do |provider, override|
       override.vm.box_url = vconfig[:digitalocean_box_url]
-      provider.ssh_key_name = vconfig[:digitalocean_ssh_key_name]
-      provider.token = vconfig[:digitalocean_token]
+      override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
+      provider.ssh_key_name = ENV['DIGITALOCEAN_SSH_KEY_NAME']
+      provider.token = ENV['DIGITALOCEAN_TOKEN']
       provider.image = vconfig[:digitalocean_image]
       provider.region = vconfig[:digitalocean_region]
       provider.size = vconfig[:digitalocean_size]
