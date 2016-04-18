@@ -1,0 +1,10 @@
+---
+- stat: path=/usr/bin/composer
+  register: composer
+
+- block:
+    - shell: "php -r \"readfile('https://getcomposer.org/installer');\" > composer-setup.php"
+    - command: "php composer-setup.php --install-dir=/usr/bin --filename=composer"
+    - command: "php -r \"unlink('composer-setup.php');\""
+  when: not composer.stat.exists
+  become: yes

@@ -1,0 +1,139 @@
+---
+vagrant_box: centos/7
+vagrant_username: vagrant
+vagrant_hostname: yet-another-drupalbox.local
+vagrant_machine_name: yet-another-drupalbox
+
+# see: https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html
+vagrant_ssh_private_key_path: ~/.ssh/id_rsa
+vagrant_ssh_public_key_path: ~/.ssh/id_rsa.pub
+
+# See: https://www.vagrantup.com/docs/networking/private_network.html
+vagrant_private_ip: 192.168.33.10
+
+# See: https://docs.vagrantup.com/v2/networking/public_network.html
+vagrant_public_ip: ""
+
+# See: http://docs.drupalvm.com/en/latest/extras/syncing-folders/
+vagrant_vm_synced_folder:
+  - local_path: ~/Sites/yet-another-drupalbox
+    vm_path: "{{ drupal_root_path }}"
+    type: nfs
+    create: true
+
+# virtualbox vm spec
+vagrant_vm_cpus: 2
+vagrant_vm_memory: 1024
+
+# DigitalOcean droplet configuration
+digitalocean_box_url: 'https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box'
+digitalocean_ssh_key_name: <%= ENV['DIGITALOCEAN_SSH_KEY_NAME'] %>
+digitalocean_token: <%= ENV['DIGITALOCEAN_TOKEN'] %>
+digitalocean_image: 'centos-7-0-x64'
+digitalocean_region: 'sgp1'
+digitalocean_size: '512mb'
+digitalocean_backup_enabled: false
+
+# Set this to false if you don't need to install drupal
+drupal_site_install: true
+
+# Which version of Drupal to deploy
+drupal_major_version: 8
+drupal_version: 8.0.6
+
+# options for drupal installation
+drupal_on_synced_folder: true
+drupal_root_path: /var/www/drupal
+drupal_site_name: "{{ vagrant_hostname }}"
+drupal_site_install_profile: standard
+drupal_site_install_extra_args: []
+drupal_account_name: admin
+drupal_account_pass: admin
+drupal_database_host: localhost
+drupal_database_port: 3306
+drupal_database_name: drupal
+drupal_database_user: drupal
+drupal_database_password: drupal
+
+drupal_extra_modules:
+  - devel
+
+# enable & disable modules after installation.
+# it's install_site = true
+drupal_enable_modules:
+  - devel
+
+drupal_disable_modules: []
+
+# Composer
+# NOTE: currently composer_version does not affect anything.
+# composer_version: 1.0.0
+
+# Drush
+drush_path: /usr/local/bin/drush
+drush_version: 8.0.5
+
+# DrupalConsole
+drupalconsole_path: /usr/local/bin/drupal
+drupalconsole_version: master
+
+# Extra features
+extra_features:
+  - drupalconsole
+  - nodejs
+  - adminer
+
+# Nodejs
+# currently supported "4.x", "5.x".
+nodejs_version: "4.x"
+nodejs_npm_global_packages:
+  - grunt-cli
+  - gulp
+  - bower
+
+# Extra packages you would like installed.
+extra_packages:
+  - gitflow
+  - ctags
+
+# Cron jobs are added to the root user's crontab. Keys include name (required),
+# minute, hour, day, weekday, month, job (required), and state.
+cron_jobs: []
+  # - {
+  #   name: "Drupal Cron",
+  #   minute: "*/30",
+  #   job: "{{ druah_path }} -r {{ drupal_root_path }} core-cron"
+  # }
+
+firewall_allowed_ports:
+  - "22/tcp"
+  - "80/tcp"
+  - "443/tcp"
+
+# Nginx
+nginx_vhost_path: /etc/nginx/conf.d
+nginx_hosts:
+  - server_name: "adminer.{{ vagrant_hostname }}"
+    root: "{{ adminer_install_dir }}"
+    is_php: true
+
+# php version, currently supported  "5.6", "7.0".
+php_version: "5.6"
+php_session_save_handler: files
+php_session_save_path: /var/lib/php/session
+php_memory_limit: 256M
+php_post_max_size: 16M
+php_upload_max_file_size: 8M
+
+php_fpm_listen: /var/run/php-fpm/php-fpm.sock
+php_fpm_listen_owner: nginx
+php_fpm_listen_group: nginx
+php_fpm_user: nginx
+php_fpm_group: nginx
+
+# Mysql
+mysql_root_password: root
+
+# Run specified scripts after VM is provisioned. Path is relative to the
+# `provisioning/site` file.
+post_provision_scripts: []

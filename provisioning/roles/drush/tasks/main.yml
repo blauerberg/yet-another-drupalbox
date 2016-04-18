@@ -1,0 +1,11 @@
+---
+- stat: path={{ drush_path }}
+  register: drush
+
+- block:
+  - git: repo=https://github.com/drush-ops/drush.git version={{ drush_version }} dest=/usr/local/share/drush accept_hostkey=yes
+  - command: composer install chdir=/usr/local/share/drush
+  - file: src=/usr/local/share/drush/drush dest={{ drush_path }} state=link
+  - command: "{{ drush_path }} init -y"
+  when: not drush.stat.exists
+  become: yes

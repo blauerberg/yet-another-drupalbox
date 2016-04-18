@@ -1,0 +1,23 @@
+---
+- name: Enable nginx repository
+  package: name=http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+  ignore_errors: True # FIXME
+  when: ansible_os_family == 'RedHat'
+
+- name: Install nginx
+  package: name=nginx state=present
+
+- stat: path={{ nginx_vhost_path }}/{{ drupal_site_name }}.conf
+  register: nginx_conf
+
+- block:
+  - name: Delete default configuration
+    file: path=/etc/nginx/conf.d/{{ item }} state=absent
+    with_items:
+      - default.conf
+      - example_ssl.conf
+  
+  - name: Copy nginx configuration for drupal
+    template: src=drupal_simple.conf.j2 dest={{ nginx_vhost_path }}/{{ drupal_site_name }}.conf
+    notify: restart webserver
+  when: not nginx_conf.stat.exists

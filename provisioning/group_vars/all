@@ -1,0 +1,62 @@
+---
+# php version, support php54, php55, php56 and php70
+php_version: php70
+
+# Which version of Drupal to deploy
+drupal_major_version: 8
+drupal_version: 8.0.6
+drupal_on_synced_folder: true
+
+# These are the Drupal database settings
+drupal_db_name: drupal 
+drupal_db_password: drupal
+drupal_db_user: drupal
+
+# composer
+# composer_version: 1.0.0
+
+# drush
+drush_dir: /usr/local/bin
+drush_version: 8.0.5
+
+drupal7_modules:
+  - admin_menu
+  - admin_views
+  - better_exposed_filters
+  - ctools
+  - custom_formatters
+  - date
+  - devel
+  - diff
+  - ds
+  - email
+  - entity
+  - entityreference
+  - entityreference_prepopulate
+  - extlink
+  - field_group
+  - jquery_update
+  - l10n_update
+  - libraries
+  - link
+  - markdown
+  - masquerade
+  - module_filter
+  - node_clone
+  - panels
+  - panels_everywhere
+  - rules
+  - shield
+  - token
+  - views
+  - views_bulk_operations
+  - webform
+
+drupal8_modules:
+  - devel
+
+# You shouldn't need to change this.
+mysql_port: 3306
+
+# This is used for the nginx server configuration.
+server_hostname: www.example.com

@@ -1,0 +1,54 @@
+---
+- name: Enable remi repository
+  package: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=present
+  when: ansible_os_family == 'RedHat'
+  ignore_errors: True # FIXME
+
+- name: Enable remi repo for PHP 5.5.
+  set_fact: php_enablerepo="remi-php55"
+  when: php_version == "5.5"
+
+- name: Enable remi repo for PHP 5.6.
+  set_fact: php_enablerepo="remi-php56"
+  when: php_version == "5.6"
+
+- name: Enable remi repo for PHP 7.0.
+  set_fact: php_enablerepo="remi-php70"
+  when: php_version == "7.0"
+
+- name: Install php-fpm and deps 
+  package: name={{ item }} state=present enablerepo={{ php_enablerepo }}
+  with_items:
+    - php
+    - php-cli
+    - php-fpm
+    - php-mbstring
+    - php-xml
+    - php-gd
+    - php-mysqlnd
+    - php-json
+    - php-mcrypt
+    - php-ldap
+    - php-opcache
+
+- name: Check if php-fpm is enabled
+  command: systemctl is-enabled php-fpm
+  register: php_fpm_is_enabled
+  changed_when: False
+  ignore_errors: True # FIXME
+
+- block:
+    - name: Change owner for session directory
+      file:
+        path: "{{ php_session_save_path }}"
+        group: "{{ php_fpm_group }}"
+        owner: "{{ php_fpm_user }}"
+      when: php_session_save_handler == "files"
+    
+    - name: Enable php-fpm
+      command: systemctl enable php-fpm
+  when: php_fpm_is_enabled.stdout == "disabled"
+
+- name: Copy php-fpm configuration
+  template: src=www.conf.j2 dest=/etc/php-fpm.d/www.conf
+  notify: restart php-fpm

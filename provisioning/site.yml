@@ -1,0 +1,33 @@
+---
+- name: Install drupal environment
+  hosts: all
+  become: yes
+
+  vars_files:
+    - group_vars/all
+    - ../config.yml
+
+  roles:
+    - security
+    - swap
+    - common
+    - mysql
+    - nginx
+    - php-fpm
+    - composer
+    - drush
+    - { role: drupalconsole, when: '"drupalconsole" in extra_features' }
+    - { role: nodejs, when: '"nodejs" in extra_features' }
+    - { role: geerlingguy.adminer, when: '"adminer" in extra_features' }
+    - drupal
+    - cron
+
+  tasks:
+    - include: tasks/adminer.yml
+      when: '"adminer" in extra_features'
+    - include: tasks/www.yml
+
+    - name: Run configured post-provision shell scripts.
+      script: "{{ item }}"
+      with_items: "{{ post_provision_scripts }}"
+      when: post_provision_scripts is defined

@@ -1,0 +1,8 @@
+---
+- stat: path={{ adminer_install_dir }}/index.php
+  register: adminer
+
+- name: create symbolic link for adminer
+  file: src={{ adminer_install_dir }}/adminer.php dest={{ adminer_install_dir }}/index.php state=link
+  when: not adminer.stat.exists
+  become: yes

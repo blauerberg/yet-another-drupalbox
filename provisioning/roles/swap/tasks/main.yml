@@ -1,0 +1,10 @@
+---
+- stat: path=/var/swap
+  register: swap
+
+- block:
+  - command: fallocate -l 2G /var/swap
+  - command: chmod 600 /var/swap
+  - command: mkswap /var/swap
+  - command: swapon /var/swap
+  when: not swap.stat.exists

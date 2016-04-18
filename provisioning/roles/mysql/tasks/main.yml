@@ -1,0 +1,46 @@
+---
+- name: Install MariaDB package
+  package: name={{ item }} state=present
+  with_items:
+    - mariadb
+    - mariadb-server
+    - MySQL-python
+  when: ansible_os_family == 'RedHat'
+
+- name: Install Mysql package
+  package: name={{ item }} state=present
+  with_items:
+    - mysql
+    - mysql-server
+    - python-mysqldb
+  when: ansible_os_family == 'Debian'
+
+- name: Start MariaDB Service
+  service: name=mariadb state=started enabled=yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Start Mysql Service
+  service: name=mysqld state=started enabled=yes
+  when: ansible_os_family == 'Debian'
+
+- stat: path=/root/.my.cnf
+  register: root_my_cnf
+
+- block:
+    - name: copy .my.cnf
+      template: src=.my.cnf.j2 dest=/root/.my.cnf owner=root mode=0600
+
+    - name: Update MySQL root password
+      mysql_user:
+        host: localhost
+        name: root
+        password: "{{ mysql_root_password }}"
+
+    - name: update password in .my.cnf
+      lineinfile:
+        dest: /root/.my.cnf
+        state: present
+        regexp: "^password =$"
+        line: "password = {{ mysql_root_password }}"
+        backrefs: yes
+  when: not root_my_cnf.stat.exists

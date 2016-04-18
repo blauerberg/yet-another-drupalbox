@@ -1,0 +1,16 @@
+---
+- stat: path={{ drupalconsole_path }}
+  register: drupalconsole
+
+- block:
+  - git: repo=https://github.com/hechoendrupal/DrupalConsole
+         version={{ drupalconsole_version }}
+         dest=/usr/local/share/DrupalConsole
+         accept_hostkey=yes
+  - command: composer install chdir=/usr/local/share/DrupalConsole
+  - file: src=/usr/local/share/DrupalConsole/bin/drupal
+          dest={{ drupalconsole_path }}
+          state=link
+  - command: "{{ drupalconsole_path }} init"
+  when: not drupalconsole.stat.exists and drupal_major_version == 8
+  become: yes

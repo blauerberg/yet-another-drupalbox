@@ -1,0 +1,21 @@
+---
+- stat: path=/usr/bin/node
+  register: node
+
+- block:
+    - name: Add NodeSource repository
+      shell: 'curl --silent --location https://rpm.nodesource.com/setup_"{{ nodejs_version }}" | bash -'
+      when: ansible_os_family == 'RedHat'
+
+    - name: Add NodeSource repository
+      shell: 'curl -sL https://deb.nodesource.com/setup_"{{ nodejs_version }}" | sudo -E bash -'
+      when: ansible_os_family == 'Debian'
+
+    - name: Install nodejs
+      package: name=nodejs state=present
+
+    - name: Install nodejs global packages
+      npm: name={{ item }} global=yes state=present
+      with_items: "{{ nodejs_npm_global_packages }}"
+  when: not node.stat.exists
+  become: yes
