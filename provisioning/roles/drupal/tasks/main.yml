@@ -2,7 +2,7 @@
 - stat: path={{ drupal_root_path }}/index.php
   register: drupal
 
-- stat: path={{ drupal_root_path }}/index.php
+- stat: path={{ drupal_root_path }}
   register: parent_dir
 
 - name: Create root directory for drupal.
