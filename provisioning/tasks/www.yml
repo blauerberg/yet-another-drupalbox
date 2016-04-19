@@ -1,11 +1,5 @@
 ---
 - name: Copy Nginx vhosts into place.
-  template:
-    src: ../templates/nginx-vhost.conf.j2
-    dest: "{{ nginx_vhost_path }}/{{ item.server_name.split(' ')[0] }}.conf"
-    force: yes
-    owner: root
-    group: root
-    mode: 0644
+  include: www_vhost.yml
   with_items: "{{ nginx_hosts }}"
   notify: restart webserver
