@@ -1,6 +1,26 @@
 ---
-- name: Disable selinux
-  selinux: state=disabled
+- block:
+    - name: Disable selinux
+      selinux: state=disabled
+
+    - name: Install yum-cron
+      package: name=yum-cron state=present
+
+    - name: Initialize yum-cron.conf
+      lineinfile:
+        dest: /etc/yum/yum-cron.conf
+        state: present
+        regexp: "^update_cmd = default$"
+        line: "update_cmd = security"
+        backrefs: yes
+
+    - name: Initialize yum-cron.conf
+      lineinfile:
+        dest: /etc/yum/yum-cron.conf
+        state: present
+        regexp: "^apply_updates = no$"
+        line: "apply_updates = yes"
+        backrefs: yes
   when: ansible_os_family == 'RedHat'
 
 - name: Install firewalld
