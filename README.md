@@ -15,6 +15,7 @@ $ brew install vagrant
 $ vagrant plugin install vagrant-hostmanager # recommended
 $ vagrant box add centos/7 --provider virtualbox
 $ brew install ansible
+$ ansible-galaxy install geerlingguy.adminer
 
 $ git clone https://bitbucket.org/annal-inc/yet-another-drupalbox/src
 $ cd yet-another-drupalbox
