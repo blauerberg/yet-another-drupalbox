@@ -14,6 +14,8 @@ server {
     root {{ item.root }};
     index index.php index.html index.htm;
 
+    client_max_body_size 128m;
+
 {% if item.is_php is defined and item.is_php %}
     location / {
         # Don't touch PHP for static content.
