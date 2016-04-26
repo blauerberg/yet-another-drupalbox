@@ -21,7 +21,7 @@ end
 
 require 'yaml'
 
-config_path = "#{Dir.pwd}/config.yml"
+config_path = "#{File.dirname(__FILE__)}/config.yml"
 unless File.exist?(config_path)
   raise 'Configuration file not found! Please copy default.drupal*.config.yml to config.yml and try again.'
 end
@@ -104,8 +104,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision 'ansible' do |ansible|
-    ansible.playbook = "#{Dir.pwd}/provisioning/site.yml"
-    ansible.extra_vars = "#{Dir.pwd}/config.yml"
+    ansible.playbook = "#{File.dirname(__FILE__)}/provisioning/site.yml"
+    ansible.extra_vars = "#{File.dirname(__FILE__)}/config.yml"
   end
 
   # Allow an untracked Vagrantfile to modify the configurations
