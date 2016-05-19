@@ -32,6 +32,9 @@ digitalocean_region: 'sgp1'
 digitalocean_size: '512mb'
 digitalocean_backup_enabled: false
 
+# Cloud init
+user_data_path: ~/user_data.yml
+
 # Set this to false if you don't need to install drupal
 drupal_site_install: true
 

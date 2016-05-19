@@ -81,6 +81,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       provider.region = vconfig[:digitalocean_region]
       provider.size = vconfig[:digitalocean_size]
       provider.backups_enabled = vconfig[:digitalocean_backup_enabled]
+      if !vconfig[:user_data_path].nil? and File.exist? vconfig[:user_data_path]
+        provider.user_data = File.read vconfig[:user_data_path]
+      end
     end
   end
 
