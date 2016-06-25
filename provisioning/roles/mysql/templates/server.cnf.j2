@@ -1,0 +1,27 @@
+[server]
+{% for config in mysql_config_server %}
+  {% for key,value in config.items() %}
+    {{ key }} = {{ value }}
+  {% endfor %}
+{% endfor %}
+
+[mysqld]
+{% for config in mysql_config_mysqld %}
+  {% for key,value in config.items() %}
+    {{ key }} = {{ value }}
+  {% endfor %}
+{% endfor %}
+
+[embedded]
+{% for config in mysql_config_embedded %}
+  {% for key,value in config.items() %}
+    {{ key }} = {{ value }}
+  {% endfor %}
+{% endfor %}
+
+[mariadb]
+{% for config in mysql_config_mariadb %}
+  {% for key,value in config.items() %}
+    {{ key }} = {{ value }}
+  {% endfor %}
+{% endfor %}

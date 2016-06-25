@@ -134,6 +134,17 @@ php_fpm_group: nginx
 
 # Mysql
 mysql_root_password: root
+mysql_config_server: []
+mysql_config_mysqld: []
+mysql_config_embedded: []
+mysql_config_mariadb:
+  - max_allowed_packet: 32M
+  - key_buffer: 32M
+  - innodb_buffer_pool_size: 256M
+  - innodb_log_buffer_size: 16M
+  - innodb_log_file_size: 128M
+  - innodb_file_per_table: 1
+  - query_cache_size: 32M
 
 # Run specified scripts after VM is provisioned. Path is relative to the
 # `provisioning/site` file.
