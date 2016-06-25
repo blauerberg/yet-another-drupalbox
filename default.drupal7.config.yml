@@ -144,6 +144,7 @@ firewall_allowed_ports:
   - "22/tcp"
   - "80/tcp"
   - "443/tcp"
+  - "9000/tcp"
 
 # Nginx
 nginx_vhost_path: /etc/nginx/conf.d
