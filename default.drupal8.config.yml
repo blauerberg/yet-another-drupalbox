@@ -120,7 +120,7 @@ nginx_hosts:
     is_php: true
 
 # php version, currently supported  "5.6", "7.0".
-php_version: "5.6"
+php_version: "7.0"
 php_fpm_listen: /var/run/php-fpm/php-fpm.sock
 php_fpm_listen_owner: nginx
 php_fpm_listen_group: nginx
