@@ -28,6 +28,10 @@
       src: /tmp/drupal-{{ drupal_version }}.tar.gz
       dest: /tmp
       copy: no
+    environment:
+      LANG: C
+      LC_ALL: C
+      LC_MESSAGES: C
   
   - name: Move archive
     shell: mv /tmp/drupal-{{ drupal_version }}/* {{ drupal_root_path }}
