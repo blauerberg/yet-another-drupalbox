@@ -17,7 +17,7 @@ $ vagrant box add centos/7 --provider virtualbox
 $ brew install ansible
 $ ansible-galaxy install geerlingguy.adminer
 
-$ git clone https://bitbucket.org/annal-inc/yet-another-drupalbox/src
+$ git clone git@bitbucket.org:annal-inc/yet-another-drupalbox.git
 $ cd yet-another-drupalbox
 $ ln -s default.drupal8.config.yml config.yml (if you want to boot with Drupal 8)
 $ ln -s default.drupal7.config.yml config.yml (if you want to boot with Drupal 7)
