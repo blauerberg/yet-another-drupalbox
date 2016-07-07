@@ -75,7 +75,7 @@ drupal_disable_modules: []
 
 # Drush
 drush_path: /usr/local/bin/drush
-drush_version: 8.0.5
+drush_version: master
 
 # DrupalConsole
 drupalconsole_path: /usr/local/bin/drupal
