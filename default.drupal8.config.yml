@@ -58,11 +58,14 @@ drupal_database_password: drupal
 
 drupal_extra_modules:
   - devel
+  - admin_toolbar
 
 # enable & disable modules after installation.
 # it's install_site = true
 drupal_enable_modules:
   - devel
+  - admin_toolbar
+  - admin_toolbar_tools
 
 drupal_disable_modules: []
 
