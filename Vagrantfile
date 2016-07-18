@@ -73,6 +73,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define vconfig[:vagrant_machine_name] do |droplet|
     droplet.vm.provider :digital_ocean do |provider, override|
+      override.nfs.functional = false
       override.vm.box_url = vconfig[:digitalocean_box_url]
       override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
       provider.ssh_key_name = ENV['DIGITALOCEAN_SSH_KEY_NAME']
