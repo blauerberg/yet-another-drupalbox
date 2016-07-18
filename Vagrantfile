@@ -55,12 +55,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network "public_network", ip: vconfig[:vagrant_public_ip]
   end
 
-  config.vm.provider "virtualbox" do |vm|
+  config.vm.provider "virtualbox" do |vm, override|
     vm.cpus = vconfig[:vagrant_vm_cpus]
     vm.memory = vconfig[:vagrant_vm_memory]
 
     vconfig[:vagrant_vm_synced_folder].each do |synced_folder|
-      config.vm.synced_folder(
+      override.vm.synced_folder(
         synced_folder['local_path'],
         synced_folder['vm_path'],
         {
