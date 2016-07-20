@@ -165,7 +165,7 @@ php_session_save_path: /var/lib/php/session
 php_value:
   - memory_limit: 256M
   - post_max_size: 16M
-  - upload_max_file_size: 8M
+  - upload_max_filesize: 8M
   - apc.shm_size: 64M
   - apc.entries_hint: 16384
   - apc.ttl: 7200
