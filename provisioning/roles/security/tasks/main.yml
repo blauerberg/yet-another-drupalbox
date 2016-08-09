@@ -1,12 +1,13 @@
 ---
-- block:
-    - name: Disable selinux
-      selinux: state=disabled
+- name: Disable selinux
+  selinux: state=disabled
+  when: ansible_os_family == 'RedHat' and ansible_distribution != 'Amazon'
 
+- block:
     - name: Install yum-cron
       package: name=yum-cron state=present
 
-    - name: Initialize yum-cron.conf
+    - name: Initialize yum-cron.conf : update only security
       lineinfile:
         dest: /etc/yum/yum-cron.conf
         state: present
@@ -14,7 +15,7 @@
         line: "update_cmd = security"
         backrefs: yes
 
-    - name: Initialize yum-cron.conf
+    - name: Initialize yum-cron.conf : auto update
       lineinfile:
         dest: /etc/yum/yum-cron.conf
         state: present
@@ -25,12 +26,14 @@
 
 - name: Install firewalld
   package: name=firewalld state=present
+  when: ansible_distribution != 'Amazon'
 
 - name: Check if firewalld is enabled
   command: systemctl is-enabled firewalld
   register: firewalld_is_enabled
   changed_when: False
   ignore_errors: True # FIXME
+  when: ansible_distribution != 'Amazon'
 
 - block:
     - name: Start firewalld
@@ -46,4 +49,4 @@
     - name: Enable firewalld
       command: systemctl enable firewalld
 
-  when: firewalld_is_enabled.stdout == "disabled"
+  when: ansible_distribution != 'Amazon' and firewalld_is_enabled.stdout == "disabled"
