@@ -26,29 +26,29 @@
         backrefs: yes
   when: ansible_os_family == 'RedHat'
 
-- name: Install firewalld
-  package: name=firewalld state=present
-  when: ansible_distribution != 'Amazon'
-
-- name: Check if firewalld is enabled
-  command: systemctl is-enabled firewalld
-  register: firewalld_is_enabled
-  changed_when: False
-  ignore_errors: True # FIXME
-  when: ansible_distribution != 'Amazon'
-
 - block:
+  - name: Install firewalld
+    package: name=firewalld state=present
+  
+  - name: Check if firewalld is enabled
+    command: systemctl is-enabled firewalld
+    register: firewalld_is_enabled
+    changed_when: False
+    ignore_errors: True # FIXME
+  
+  - block:
     - name: Start firewalld
       service: name=firewalld state=started enabled=yes
-
+  
     - name: Setup firewalld
       firewalld: port={{ item }} permanent=true zone=public state=enabled
       with_items: "{{ firewall_allowed_ports }}"
-
+  
     - name: Reload firewalld
       command: firewall-cmd --reload
-
+  
     - name: Enable firewalld
       command: systemctl enable firewalld
-
-  when: ansible_distribution != 'Amazon' and firewalld_is_enabled.stdout == "disabled"
+  
+    when: firewalld_is_enabled.stdout == "disabled"
+  when: ansible_distribution != 'Amazon'
