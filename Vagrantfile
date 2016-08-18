@@ -88,6 +88,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.provider :aws do |aws, override|
+    config.vm.box = "dummy"
+    aws.access_key_id = ENV['AWS_ACCESS_KEY_ID']
+    aws.secret_access_key = ENV['AWS_SECRECT_ACCEESS_KEY']
+    aws_config = vconfig[:aws]
+    aws_config.each do |k,v|
+      aws.send("#{k}=", v)
+    end
+
+    override.ssh.username = "ec2-user"
+    override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
+  end
+
   if Vagrant.has_plugin?('vagrant-hostmanager')
     aliases = []
     aliases.concat(config.vm.hostname.split)
