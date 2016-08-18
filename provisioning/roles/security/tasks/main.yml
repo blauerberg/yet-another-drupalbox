@@ -7,7 +7,8 @@
     - name: Install yum-cron
       package: name=yum-cron state=present
 
-    - name: Initialize yum-cron.conf : update only security
+    # update only security
+    - name: Initialize yum-cron.conf
       lineinfile:
         dest: /etc/yum/yum-cron.conf
         state: present
@@ -15,7 +16,8 @@
         line: "update_cmd = security"
         backrefs: yes
 
-    - name: Initialize yum-cron.conf : auto update
+    # enable auto update
+    - name: Initialize yum-cron.conf
       lineinfile:
         dest: /etc/yum/yum-cron.conf
         state: present
