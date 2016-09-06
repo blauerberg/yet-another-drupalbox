@@ -15,6 +15,9 @@
     - python-mysqldb
   when: ansible_os_family == 'Debian'
 
+- name: Copy server config
+  template: src=server.cnf.j2 dest=/etc/my.cnf.d/server.cnf owner=root mode=0644
+
 - name: Start MariaDB Service
   service: name=mariadb state=started enabled=yes
   when: ansible_os_family == 'RedHat'

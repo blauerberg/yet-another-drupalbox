@@ -2,6 +2,14 @@
 - stat: path={{ drupal_root_path }}/index.php
   register: drupal
 
+- stat: path={{ drupal_root_path }}
+  register: parent_dir
+
+- name: Create root directory for drupal.
+  file: path={{ drupal_root_path }} state=directory owner=nginx group=nginx mode=0755
+  when: not parent_dir.stat.exists
+  become: yes
+
 - name: Check if site is already installed.
   command: >
     {{ drush_path }} status bootstrap
@@ -20,6 +28,10 @@
       src: /tmp/drupal-{{ drupal_version }}.tar.gz
       dest: /tmp
       copy: no
+    environment:
+      LANG: C
+      LC_ALL: C
+      LC_MESSAGES: C
   
   - name: Move archive
     shell: mv /tmp/drupal-{{ drupal_version }}/* {{ drupal_root_path }}

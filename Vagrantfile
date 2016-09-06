@@ -21,7 +21,7 @@ end
 
 require 'yaml'
 
-config_path = "#{Dir.pwd}/config.yml"
+config_path = "#{File.dirname(__FILE__)}/config.yml"
 unless File.exist?(config_path)
   raise 'Configuration file not found! Please copy default.drupal*.config.yml to config.yml and try again.'
 end
@@ -55,12 +55,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network "public_network", ip: vconfig[:vagrant_public_ip]
   end
 
-  config.vm.provider "virtualbox" do |vm|
+  config.nfs.map_uid = Process.uid
+  config.nfs.map_gid = Process.gid
+
+  config.vm.provider "virtualbox" do |vm, override|
     vm.cpus = vconfig[:vagrant_vm_cpus]
     vm.memory = vconfig[:vagrant_vm_memory]
 
     vconfig[:vagrant_vm_synced_folder].each do |synced_folder|
-      config.vm.synced_folder(
+      override.vm.synced_folder(
         synced_folder['local_path'],
         synced_folder['vm_path'],
         {
@@ -68,19 +71,46 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           create: synced_folder['create']
         }
       )
+
+      if synced_folder['type'] == 'nfs'
+        override.vm.synced_folders[synced_folder['vm_path']][:guestpath] = synced_folder['bindfs']['path']
+        override.bindfs.bind_folder synced_folder['bindfs']['path'], synced_folder['vm_path'],
+          u: synced_folder['bindfs']['user'],
+          g: synced_folder['bindfs']['group'],
+          perms: synced_folder['bindfs']['perms'],
+          o: synced_folder['bindfs']['options']
+      end
     end
   end
 
   config.vm.define vconfig[:vagrant_machine_name] do |droplet|
     droplet.vm.provider :digital_ocean do |provider, override|
+      override.nfs.functional = false
       override.vm.box_url = vconfig[:digitalocean_box_url]
-      provider.ssh_key_name = vconfig[:digitalocean_ssh_key_name]
-      provider.token = vconfig[:digitalocean_token]
+      override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
+      provider.ssh_key_name = ENV['DIGITALOCEAN_SSH_KEY_NAME']
+      provider.token = ENV['DIGITALOCEAN_TOKEN']
       provider.image = vconfig[:digitalocean_image]
       provider.region = vconfig[:digitalocean_region]
       provider.size = vconfig[:digitalocean_size]
       provider.backups_enabled = vconfig[:digitalocean_backup_enabled]
+      if !vconfig[:user_data_path].nil? and File.exist? vconfig[:user_data_path]
+        provider.user_data = File.read vconfig[:user_data_path]
+      end
     end
+  end
+
+  config.vm.provider :aws do |aws, override|
+    override.vm.box = "dummy"
+    aws.access_key_id = ENV['VAGRANT_AWS_ACCESS_KEY_ID']
+    aws.secret_access_key = ENV['VAGRANT_AWS_SECRECT_ACCEESS_KEY']
+    aws_config = vconfig[:aws]
+    aws_config.each do |k,v|
+      aws.send("#{k}=", v)
+    end
+
+    override.ssh.username = "ec2-user"
+    override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
   end
 
   if Vagrant.has_plugin?('vagrant-hostmanager')
@@ -103,8 +133,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision 'ansible' do |ansible|
-    ansible.playbook = "#{Dir.pwd}/provisioning/site.yml"
-    ansible.extra_vars = "#{Dir.pwd}/config.yml"
+    ansible.playbook = "#{File.dirname(__FILE__)}/provisioning/site.yml"
+    ansible.extra_vars = "#{File.dirname(__FILE__)}/config.yml"
   end
 
   # Allow an untracked Vagrantfile to modify the configurations

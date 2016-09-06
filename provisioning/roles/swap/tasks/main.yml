@@ -7,4 +7,4 @@
   - command: chmod 600 /var/swap
   - command: mkswap /var/swap
   - command: swapon /var/swap
-  when: not swap.stat.exists
+  when: not swap.stat.exists and ansible_swaptotal_mb < 1

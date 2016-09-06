@@ -1,0 +1,16 @@
+---
+- set_fact: vhost="{{ item }}"
+- set_fact: dest="{{ nginx_vhost_path }}/{{ item.server_name.split(' ')[0] }}.conf"
+
+- stat: path={{ dest }}
+  register: vhost_conf
+
+- name: Copy Nginx vhosts into place.
+  template:
+    src: ../templates/nginx-vhost.conf.j2
+    dest: "{{ dest }}"
+    force: yes
+    owner: root
+    group: root
+    mode: 0644
+  when: not vhost_conf.stat.exists
