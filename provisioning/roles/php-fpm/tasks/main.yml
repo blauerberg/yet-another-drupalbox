@@ -30,6 +30,7 @@
     - php-mcrypt
     - php-ldap
     - php-opcache
+    - php-xdebug
 
 - name: Check if php-fpm is enabled
   command: systemctl is-enabled php-fpm

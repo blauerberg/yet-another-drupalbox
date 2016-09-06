@@ -8,3 +8,9 @@
     - command: "php -r \"unlink('composer-setup.php');\""
   when: not composer.stat.exists
   become: yes
+
+- command: "composer global require {{ item.name }}:{{ item.release | default('@stable') }} --no-progress"
+  with_items: "{{ composer_global_packages }}"
+
+- command: "composer config -g {{ item }}"
+  with_items: "{{ composer_global_configs }}"

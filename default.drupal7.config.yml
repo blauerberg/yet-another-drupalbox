@@ -21,7 +21,7 @@ vagrant_vm_synced_folder:
     type: nfs
     create: true
     bindfs:
-      path: /vagrant-bindfs
+      path: '/vagrant-bindfs'
       user: 'nginx'
       group: 'nginx'
       perms: 'u=rwX:g=rwD'
@@ -122,6 +122,10 @@ drupal_disable_modules:
 # Composer
 # NOTE: currently composer_version does not affect anything.
 # composer_version: 1.0.0
+composer_global_packages:
+  - { name: hirak/prestissimo, release: '^0.3' }
+composer_global_configs:
+  - "repos.packagist composer https://packagist.jp"
 
 # Drush
 drush_path: /usr/local/bin/drush
@@ -188,6 +192,10 @@ php_value:
   - apc.shm_size: 64M
   - apc.entries_hint: 16384
   - apc.ttl: 7200
+  - xdebug.remote_enable:  1
+  - xdebug.remote_autostart: 1
+  - xdebug.remote_connect_back: 1
+  - xdebug.idekey: PHPSTORM
 
 # Mysql
 mysql_root_password: root
