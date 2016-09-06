@@ -98,7 +98,7 @@ drush_version: 8.x
 
 # DrupalConsole
 drupalconsole_path: /usr/local/bin/drupal
-drupalconsole_version: master
+drupalconsole_version: 1.0.0-beta5
 
 # Extra features
 extra_features:

@@ -3,12 +3,8 @@
   register: drupalconsole
 
 - block:
-  - git: repo=https://github.com/hechoendrupal/DrupalConsole
-         version={{ drupalconsole_version }}
-         dest=/usr/local/share/DrupalConsole
-         accept_hostkey=yes
-  - command: composer install chdir=/usr/local/share/DrupalConsole
-  - file: src=/usr/local/share/DrupalConsole/bin/drupal
+  - command: "composer global require drupal/console:{{ drupalconsole_version }}"
+  - file: src=~/.composer/vendor/bin/drupal
           dest={{ drupalconsole_path }}
           state=link
   - command: "{{ drupalconsole_path }} init"
