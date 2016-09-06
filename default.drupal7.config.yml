@@ -188,6 +188,10 @@ php_value:
   - apc.shm_size: 64M
   - apc.entries_hint: 16384
   - apc.ttl: 7200
+  - xdebug.remote_enable:  1
+  - xdebug.remote_autostart: 1
+  - xdebug.remote_connect_back: 1
+  - xdebug.idekey: PHPSTORM
 
 # Mysql
 mysql_root_password: root
