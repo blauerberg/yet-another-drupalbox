@@ -20,6 +20,12 @@ vagrant_vm_synced_folder:
     vm_path: "{{ drupal_root_path }}"
     type: nfs
     create: true
+    bindfs:
+      path: /vagrant-bindfs
+      user: 'nginx'
+      group: 'nginx'
+      perms: 'u=rwX:g=rwD'
+      options: 'nonempty'
 
 # virtualbox vm spec
 vagrant_vm_cpus: 2

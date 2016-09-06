@@ -13,6 +13,7 @@ currently, Windows not supported...
 ```
 $ brew install vagrant 
 $ vagrant plugin install vagrant-hostmanager # recommended
+$ vagrant plugin install vagrant-bindfs
 $ vagrant box add centos/7 --provider virtualbox
 $ brew install ansible
 $ ansible-galaxy install geerlingguy.adminer

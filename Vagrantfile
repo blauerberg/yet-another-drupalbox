@@ -55,6 +55,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network "public_network", ip: vconfig[:vagrant_public_ip]
   end
 
+  config.nfs.map_uid = Process.uid
+  config.nfs.map_gid = Process.gid
+
   config.vm.provider "virtualbox" do |vm, override|
     vm.cpus = vconfig[:vagrant_vm_cpus]
     vm.memory = vconfig[:vagrant_vm_memory]
@@ -68,6 +71,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           create: synced_folder['create']
         }
       )
+
+      if synced_folder['type'] == 'nfs'
+        override.vm.synced_folders[synced_folder['vm_path']][:guestpath] = synced_folder['bindfs']['path']
+        override.bindfs.bind_folder synced_folder['bindfs']['path'], synced_folder['vm_path'],
+          u: synced_folder['bindfs']['user'],
+          g: synced_folder['bindfs']['group'],
+          perms: synced_folder['bindfs']['perms'],
+          o: synced_folder['bindfs']['options']
+      end
     end
   end
 
