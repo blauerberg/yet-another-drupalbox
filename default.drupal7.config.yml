@@ -21,7 +21,7 @@ vagrant_vm_synced_folder:
     type: nfs
     create: true
     bindfs:
-      path: /vagrant-bindfs
+      path: '/vagrant-bindfs'
       user: 'nginx'
       group: 'nginx'
       perms: 'u=rwX:g=rwD'
