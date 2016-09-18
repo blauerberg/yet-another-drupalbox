@@ -1,0 +1,52 @@
+---
+- stat: path={{ mautic_root_path }}/index.php
+  register: mautic
+
+- block:
+  - stat: path={{ mautic_root_path }}
+    register: parent_dir
+
+  - name: Create root directory for mautic.
+    file: path={{ mautic_root_path }} state=directory owner=nginx group=nginx mode=0755
+    when: not parent_dir.stat.exists
+    become: yes
+
+  - name: Download Mautic
+    get_url: url=https://github.com/mautic/mautic/archive/{{ mautic_version }}.tar.gz dest=/tmp/mautic-{{ mautic_version }}.tar.gz
+  
+  - name: Extract archive
+    unarchive:
+      src: /tmp/mautic-{{ mautic_version }}.tar.gz
+      dest: /tmp
+      copy: no
+    environment:
+      LANG: C
+      LC_ALL: C
+      LC_MESSAGES: C
+  
+  - name: Move archive
+    shell: mv /tmp/mautic-{{ mautic_version }}/* {{ mautic_root_path }}
+    notify: restart php-fpm
+
+  - name: Composer install
+    command: composer install chdir={{ mautic_root_path }}
+
+  - name: Change ownership of Mautic installation
+    file: path={{ mautic_root_path }} owner=nginx group=nginx state=directory recurse=yes
+
+  - name: Create Mautic database
+    mysql_db: name={{ mautic_database_name }} state=present
+  
+  - name: Create Mautic database user
+    mysql_user:
+      name: "{{ mautic_database_user }}"
+      password: "{{ mautic_database_password }}"
+      priv: "{{ mautic_database_name }}.*:ALL"
+      host: "{{ mautic_database_host }}"
+      state: present
+
+  - name: Copy nginx configuration for mautic
+    template: src=mautic_nginx.conf.j2 dest={{ nginx_vhost_path }}/{{ mautic_site_name }}.conf
+    notify: restart webserver
+
+  when: not mautic.stat.exists

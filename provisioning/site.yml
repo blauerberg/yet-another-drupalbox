@@ -18,6 +18,7 @@
     - drush
     - { role: drupalconsole, when: '"drupalconsole" in extra_features' }
     - { role: nodejs, when: '"nodejs" in extra_features' }
+    - { role: mautic, when: '"mautic" in extra_features' }
     - { role: geerlingguy.adminer, when: '"adminer" in extra_features' }
     - drupal
     - cron
