@@ -20,6 +20,7 @@
     - { role: nodejs, when: '"nodejs" in extra_features' }
     - { role: mautic, when: '"mautic" in extra_features' }
     - { role: geerlingguy.adminer, when: '"adminer" in extra_features' }
+    - { role: geerlingguy.mailhog, when: '"mailhog" in extra_features' }
     - drupal
     - cron
 

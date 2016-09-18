@@ -141,6 +141,7 @@ extra_features:
   - nodejs
   #- mautic
   - adminer
+  - mailhog
 
 # Nodejs
 # currently supported "4.x", "5.x".
@@ -192,6 +193,7 @@ firewall_allowed_ports:
   - "80/tcp"
   - "443/tcp"
   - "9000/tcp"
+  - "8025/tcp" # for mailhog
 
 # Nginx
 nginx_vhost_path: /etc/nginx/conf.d

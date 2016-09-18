@@ -25,6 +25,7 @@ $ vagrant plugin install vagrant-bindfs
 $ vagrant box add centos/7 --provider virtualbox
 $ brew install ansible
 $ ansible-galaxy install geerlingguy.adminer
+$ ansible-galaxy install geerlingguy.mailhog
 
 $ git clone https://github.com/blauerberg/yet-another-drupalbox.git
 $ cd yet-another-drupalbox

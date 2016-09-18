@@ -1,2 +1,3 @@
 ---
 - src: geerlingguy.adminer
+- src: geerlingguy.mailhog
