@@ -139,7 +139,7 @@ drupalconsole_version: master
 extra_features:
   - drupalconsole
   - nodejs
-  - mautic
+  #- mautic
   - adminer
 
 # Nodejs

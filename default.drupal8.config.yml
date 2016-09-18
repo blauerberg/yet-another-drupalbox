@@ -108,7 +108,7 @@ drupalconsole_version: 1.0.0-beta5
 extra_features:
   - drupalconsole
   - nodejs
-  - mautic
+  #- mautic
   - adminer
 
 # Nodejs
