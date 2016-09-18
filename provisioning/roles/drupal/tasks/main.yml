@@ -17,7 +17,7 @@
   register: drupal_site_installed
   failed_when: false
   changed_when: false
-  become: no
+  become: yes
 
 - block:
   - name: Download Drupal
@@ -73,6 +73,5 @@
 
   - name: Change ownership of Drupal installation
     file: path={{ drupal_root_path }} owner=nginx group=nginx state=directory recurse=yes
-    when: drupal_on_synced_folder == false
   
   when: "'Successful' not in drupal_site_installed.stdout and {{ drupal_site_install }} == true"

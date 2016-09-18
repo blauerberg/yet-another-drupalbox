@@ -108,7 +108,9 @@ drupalconsole_version: 1.0.0-beta5
 extra_features:
   - drupalconsole
   - nodejs
+  #- mautic
   - adminer
+  - mailhog
 
 # Nodejs
 # currently supported "4.x", "5.x".
@@ -118,6 +120,16 @@ nodejs_npm_global_packages:
   - gulp
   - bower
 
+# Mautic
+mautic_root_path: /var/www/mautic
+mautic_version: 2.1.1
+mautic_site_name: "mautic.{{ vagrant_hostname }}"
+mautic_database_host: localhost
+mautic_database_port: 3306
+mautic_database_name: mautic
+mautic_database_user: mautic
+mautic_database_password: mautic
+
 # Extra packages you would like installed.
 extra_packages:
   - gitflow
@@ -126,17 +138,33 @@ extra_packages:
 # Cron jobs are added to the root user's crontab. Keys include name (required),
 # minute, hour, day, weekday, month, job (required), and state.
 cron_jobs: []
-  # - {
-  #   name: "Drupal Cron",
-  #   minute: "*/30",
-  #   job: "{{ druah_path }} -r {{ drupal_root_path }} core-cron"
-  # }
+  #- {
+  #    name: "Drupal Cron",
+  #    minute: "*/30",
+  #    job: "{{ druah_path }} -r {{ drupal_root_path }} core-cron"
+  #  }
+  #- {
+  #    name: "Mautic: keep the segments current",
+  #    minute: "0,15,30,45",
+  #    job: "php {{ mautic_root_path}}/app/console mautic:segments:update"
+  #  }
+  #- {
+  #    name: "Mautic: keep campaigns updated with applicable contacts",
+  #    minute: "5,20,35,50",
+  #    job: "php {{ mautic_root_path}}/app/console mautic:campaigns:rebuild"
+  #  }
+  #- {
+  #    name: "Mautic: execute campaigns events",
+  #    minute: "10,25,40,55",
+  #    job: "php {{ mautic_root_path}}/app/console mautic:campaigns:trigger"
+  #  }
 
 firewall_allowed_ports:
   - "22/tcp"
   - "80/tcp"
   - "443/tcp"
   - "9000/tcp"
+  - "8025/tcp" # for mailhog
 
 # Nginx
 nginx_vhost_path: /etc/nginx/conf.d

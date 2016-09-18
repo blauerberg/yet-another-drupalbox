@@ -80,6 +80,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           perms: synced_folder['bindfs']['perms'],
           o: synced_folder['bindfs']['options']
       end
+
+      if Vagrant.has_plugin?('vagrant-cachier')
+        override.cache.scope = :box
+      end
     end
   end
 
@@ -119,6 +123,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vconfig[:nginx_hosts].each do |host|
       aliases.concat(host['server_name'].split)
     end
+    if vconfig[:extra_features].include? 'mautic'
+      aliases.push(vconfig[:mautic_site_name])
+    end
+
     aliases = aliases.uniq - [config.vm.hostname]
 
     config.hostmanager.enabled = true
