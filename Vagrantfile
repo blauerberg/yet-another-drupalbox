@@ -80,6 +80,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           perms: synced_folder['bindfs']['perms'],
           o: synced_folder['bindfs']['options']
       end
+
+      if Vagrant.has_plugin?('vagrant-cachier')
+        override.cache.scope = :box
+      end
     end
   end
 
