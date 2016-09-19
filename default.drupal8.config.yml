@@ -146,16 +146,19 @@ cron_jobs: []
   #- {
   #    name: "Mautic: keep the segments current",
   #    minute: "0,15,30,45",
+  #    user: "nginx",
   #    job: "php {{ mautic_root_path}}/app/console mautic:segments:update"
   #  }
   #- {
   #    name: "Mautic: keep campaigns updated with applicable contacts",
   #    minute: "5,20,35,50",
+  #    user: "nginx",
   #    job: "php {{ mautic_root_path}}/app/console mautic:campaigns:rebuild"
   #  }
   #- {
   #    name: "Mautic: execute campaigns events",
   #    minute: "10,25,40,55",
+  #    user: "nginx",
   #    job: "php {{ mautic_root_path}}/app/console mautic:campaigns:trigger"
   #  }
 
