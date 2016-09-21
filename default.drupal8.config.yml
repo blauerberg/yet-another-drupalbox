@@ -51,6 +51,15 @@ aws:
     Name: 'yet-another-drupalbox'
   # more options: https://github.com/mitchellh/vagrant-aws#configuration
 
+# Azure configuration
+azure:
+  resource_group_name: 'YOUR_RESOURCE_GROUP_NAME'
+  location: 'japaneast'
+  vm_name: 'yet-another-drupalbox'
+  vm_image_urn: 'OpenLogic:CentOS:7.2n:7.2.20160629' # see https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-cli-ps-findimage/
+  vm_size: 'Standard_A0'
+  # more options: https://github.com/Azure/vagrant-azure
+
 # Cloud init
 # user_data_path: /Users/username/cloud-init/user_data.yml
 
