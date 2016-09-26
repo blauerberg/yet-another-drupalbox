@@ -19,10 +19,13 @@ currently, Windows not supported...
 ```
 $ brew install vagrant
 $ vagrant plugin install vagrant-hostmanager # recommended
+$ vagrant plugin install vagrant-cachier # if you want to share the cache of packeges
+$ vagrant plugin install vagrant-vbguest # required if you installed vagrant-cacher
 $ vagrant plugin install vagrant-bindfs
 $ vagrant box add centos/7 --provider virtualbox
 $ brew install ansible
 $ ansible-galaxy install geerlingguy.adminer
+$ ansible-galaxy install geerlingguy.mailhog
 
 $ git clone https://github.com/blauerberg/yet-another-drupalbox.git
 $ cd yet-another-drupalbox
