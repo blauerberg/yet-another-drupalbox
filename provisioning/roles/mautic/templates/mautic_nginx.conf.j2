@@ -26,6 +26,12 @@ server {
         try_files $uri /index.php?$query_string;
     }
 
+    location = /mtc.js {
+        allow all;
+        access_log off;
+        try_files $uri /index.php?$query_string;
+    }
+
     location ~ /app/bundles/.*/Assets/ {
         allow all;
         access_log off;
