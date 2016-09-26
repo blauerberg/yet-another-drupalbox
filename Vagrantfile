@@ -117,6 +117,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
   end
 
+  config.vm.provider :azure do |azure, override|
+    override.vm.box = 'azure'
+    azure_config = vconfig[:azure]
+    # use Azure Active Directory Application / Service Principal to connect to Azure
+    # see: https://azure.microsoft.com/en-us/documentation/articles/resource-group-create-service-principal-portal/
+
+    # each of the below values will default to use the env vars named as below if not specified explicitly
+    azure.tenant_id = ENV['VAGRANT_AZURE_TENANT_ID']
+    azure.client_id = ENV['VAGRANT_AZURE_CLIENT_ID']
+    azure.client_secret = ENV['VAGRANT_AZURE_CLIENT_SECRET']
+    azure.subscription_id = ENV['VAGRANT_AZURE_SUBSCRIPTION_ID']
+    azure_config.each do |k,v|
+      azure.send("#{k}=", v)
+    end
+    override.ssh.pty = true
+    override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
+  end
+
   if Vagrant.has_plugin?('vagrant-hostmanager')
     aliases = []
     aliases.concat(config.vm.hostname.split)
