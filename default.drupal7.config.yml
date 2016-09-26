@@ -168,6 +168,7 @@ mautic_database_host: localhost
 mautic_database_port: 3306
 mautic_database_name: mautic
 mautic_database_user: mautic
+mautic_database_password: mautic
 
 # Extra packages you would like installed.
 extra_packages:
