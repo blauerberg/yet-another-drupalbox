@@ -7,12 +7,8 @@
   package: name={{ item }} state=present
   with_items:
     - bash-completion
-    - zsh
     - tmux
-    - rsync
     - git
-    - unzip
-    - vim
 
 - name: Prevent ssh login with password
   lineinfile:

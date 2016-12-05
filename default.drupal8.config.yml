@@ -141,6 +141,11 @@ mautic_database_password: mautic
 
 # Extra packages you would like installed.
 extra_packages:
+  - zsh
+  - rsync
+  - unzip
+  - htop
+  - vim
   - gitflow
   - ctags
 
