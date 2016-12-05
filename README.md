@@ -16,6 +16,7 @@ currently, Windows not supported...
 
 ### OS X
 
+#### Prerequisites
 ```
 $ brew install vagrant
 $ vagrant plugin install vagrant-hostmanager # recommended
@@ -26,7 +27,10 @@ $ vagrant box add centos/7 --provider virtualbox
 $ brew install ansible
 $ ansible-galaxy install geerlingguy.adminer
 $ ansible-galaxy install geerlingguy.mailhog
+```
 
+#### Launch your drupal site
+```
 $ git clone https://github.com/blauerberg/yet-another-drupalbox.git
 $ cd yet-another-drupalbox
 $ ln -s default.drupal8.config.yml config.yml (if you want to boot with Drupal 8)
