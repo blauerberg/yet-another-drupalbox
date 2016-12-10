@@ -111,11 +111,11 @@ drush_version: 8.x
 
 # DrupalConsole
 drupalconsole_path: /usr/local/bin/drupal
-drupalconsole_version: 1.0.0-beta5
+drupalconsole_version: 1.0.0-rc10
 
 # Extra features
 extra_features:
-  - drupalconsole
+  #- drupalconsole
   - nodejs
   #- mautic
   - adminer
