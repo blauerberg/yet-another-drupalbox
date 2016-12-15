@@ -16,17 +16,21 @@ currently, Windows not supported...
 
 ### OS X
 
+#### Prerequisites
 ```
 $ brew install vagrant
 $ vagrant plugin install vagrant-hostmanager # recommended
+$ vagrant plugin install vagrant-bindfs --plugin-version 0.4.14
 $ vagrant plugin install vagrant-cachier # if you want to share the cache of packeges
 $ vagrant plugin install vagrant-vbguest # required if you installed vagrant-cacher
-$ vagrant plugin install vagrant-bindfs
 $ vagrant box add centos/7 --provider virtualbox
 $ brew install ansible
 $ ansible-galaxy install geerlingguy.adminer
 $ ansible-galaxy install geerlingguy.mailhog
+```
 
+#### Launch your drupal site
+```
 $ git clone https://github.com/blauerberg/yet-another-drupalbox.git
 $ cd yet-another-drupalbox
 $ ln -s default.drupal8.config.yml config.yml (if you want to boot with Drupal 8)
