@@ -5,7 +5,7 @@
     - mariadb
     - mariadb-server
     - MySQL-python
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat' and ansible_distribution != 'Amazon'
 
 - name: Install Mysql package
   package: name={{ item }} state=present
@@ -15,16 +15,29 @@
     - python-mysqldb
   when: ansible_os_family == 'Debian'
 
+- name: Install Mysql package
+  package: name={{ item }} state=present
+  with_items:
+    - mysql
+    - mysql-server
+    - MySQL-python27
+  when: ansible_distribution == 'Amazon'
+
 - name: Copy server config
   template: src=server.cnf.j2 dest=/etc/my.cnf.d/server.cnf owner=root mode=0644
+  when: ansible_distribution != 'Amazon'
+
+- name: Copy server config
+  template: src=server.cnf.j2 dest=/etc/my.cnf owner=root mode=0644
+  when: ansible_distribution == 'Amazon'
 
 - name: Start MariaDB Service
   service: name=mariadb state=started enabled=yes
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat' and ansible_distribution != 'Amazon'
 
 - name: Start Mysql Service
   service: name=mysqld state=started enabled=yes
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' or ansible_distribution == 'Amazon'
 
 - stat: path=/root/.my.cnf
   register: root_my_cnf

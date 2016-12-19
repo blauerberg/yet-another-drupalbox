@@ -1,0 +1,60 @@
+---
+- name: Remove default php package
+  package: name={{ item }} state=removed
+  with_items:
+    - php
+
+- name: Install php55-fpm and deps 
+  package: name={{ item }} state=present
+  with_items:
+    - php55
+    - php55-cli
+    - php55-fpm
+    - php55-mbstring
+    - php55-xml
+    - php55-gd
+    - php55-mysqlnd
+    - php55-jsonc
+    - php55-mcrypt
+    - php55-ldap
+    - php55-opcache
+    - php55-pecl-apcu
+    - php55-pecl-xdebug
+  when: php_version == "5.5"
+
+- name: Install php56-fpm and deps 
+  package: name={{ item }} state=present
+  with_items:
+    - php56
+    - php56-cli
+    - php56-fpm
+    - php56-mbstring
+    - php56-xml
+    - php56-gd
+    - php56-mysqlnd
+    - php56-jsonc
+    - php56-mcrypt
+    - php56-ldap
+    - php56-opcache
+    - php56-pecl-apcu
+  when: php_version == "5.6"
+
+- name: Install php70-fpm and deps 
+  package: name={{ item }} state=present
+  with_items:
+    - php70
+    - php70-cli
+    - php70-fpm
+    - php70-mbstring
+    - php70-xml
+    - php70-gd
+    - php70-mysqlnd
+    - php70-jsonc
+    - php70-mcrypt
+    - php70-ldap
+    - php70-opcache
+    - php70-pecl-apcu
+  when: php_version == "7.0"
+
+- name: Enable php-fpm
+  service: name=php-fpm state=started enabled=yes

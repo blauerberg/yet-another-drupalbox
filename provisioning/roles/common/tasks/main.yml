@@ -6,9 +6,14 @@
 - name: Install base packages
   package: name={{ item }} state=present
   with_items:
-    - bash-completion
     - tmux
     - git
+
+- name: Install bash-completion
+  package: name={{ item }} state=present
+  with_items:
+    - bash-completion
+  when: ansible_distribution != 'Amazon'
 
 - name: Prevent ssh login with password
   lineinfile:
