@@ -177,7 +177,7 @@ extra_packages:
   - unzip
   - htop
   - vim
-  - gitflow
+  - gitflow # if you use Amazon Linux, comment out this line
   - ctags
 
 # Cron jobs are added to the root user's crontab. Keys include name (required),
