@@ -149,8 +149,6 @@ extra_features:
   - drupalconsole
   - nodejs
   #- mautic
-  - adminer
-  - mailhog
 
 # Nodejs
 # currently supported "4.x", "5.x".

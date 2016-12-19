@@ -25,8 +25,6 @@ $ vagrant plugin install vagrant-cachier # if you want to share the cache of pac
 $ vagrant plugin install vagrant-vbguest # required if you installed vagrant-cacher
 $ vagrant box add centos/7 --provider virtualbox
 $ brew install ansible
-$ ansible-galaxy install geerlingguy.adminer
-$ ansible-galaxy install geerlingguy.mailhog
 ```
 
 #### Launch your drupal site
