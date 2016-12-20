@@ -148,6 +148,7 @@ drupalconsole_version: master
 extra_features:
   - drupalconsole
   - nodejs
+  #- solr
   #- mautic
 
 # Nodejs
@@ -157,6 +158,13 @@ nodejs_npm_global_packages:
   - grunt-cli
   - gulp
   - bower
+
+# Apache Solr
+# Solr version, currently supported 4.x only
+solr_version: 4.9.1
+solr_install_path: /var/lib/solr
+tika_version: 1.14
+tika_install_path: /var/lib/tika
 
 # Mautic
 mautic_root_path: /var/www/mautic

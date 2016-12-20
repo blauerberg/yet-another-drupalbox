@@ -1,0 +1,14 @@
+[Unit]
+Description=Apache Solr
+After=syslog.target network.target nss-lookup.target
+
+[Service]
+PIDFile=/var/run/solr.pid
+ExecStart={{ solr_install_path }}/core/startup.sh
+User=root
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

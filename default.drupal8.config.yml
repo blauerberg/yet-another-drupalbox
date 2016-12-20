@@ -117,6 +117,7 @@ drupalconsole_version: 1.0.0-rc10
 extra_features:
   #- drupalconsole
   - nodejs
+  #- solr # Sorry, currently does not support solr with Drupal8.
   #- mautic
 
 # Nodejs

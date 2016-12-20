@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SOLR_DIR={{ solr_install_path }}/solr/core
+LOG_FILE="/var/log/solr.log"
+CMD="/bin/java -DSTOP.PORT=8079 -DSTOP.KEY=stopkey -jar start.jar"
+PID_FILE=$SOLR_DIR/solr.pid
+
+cd $SOLR_DIR
+exec $CMD > $LOG_FILE 2>&1 &
+echo $! > $PID_FILE
