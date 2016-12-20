@@ -68,7 +68,7 @@ drupal_site_install: true
 
 # Which version of Drupal to deploy
 drupal_major_version: 7
-drupal_version: 7.52
+drupal_version: 7.53
 
 # options for drupal installation
 drupal_on_synced_folder: true
@@ -148,9 +148,8 @@ drupalconsole_version: master
 extra_features:
   - drupalconsole
   - nodejs
+  #- solr
   #- mautic
-  - adminer
-  - mailhog
 
 # Nodejs
 # currently supported "4.x", "5.x".
@@ -159,6 +158,13 @@ nodejs_npm_global_packages:
   - grunt-cli
   - gulp
   - bower
+
+# Apache Solr
+# Solr version, currently supported 4.x only
+solr_version: 4.9.1
+solr_install_path: /var/lib/solr
+tika_version: 1.14
+tika_install_path: /var/lib/tika
 
 # Mautic
 mautic_root_path: /var/www/mautic
@@ -177,7 +183,7 @@ extra_packages:
   - unzip
   - htop
   - vim
-  - gitflow
+  - gitflow # if you use Amazon Linux, comment out this line
   - ctags
 
 # Cron jobs are added to the root user's crontab. Keys include name (required),

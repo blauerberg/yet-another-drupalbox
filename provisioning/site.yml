@@ -18,17 +18,13 @@
     - drush
     - { role: drupalconsole, when: '"drupalconsole" in extra_features' }
     - { role: nodejs, when: '"nodejs" in extra_features' }
+    - { role: jdk, when: '"solr" in extra_features' }
+    - { role: solr, when: '"solr" in extra_features' }
     - { role: mautic, when: '"mautic" in extra_features' }
-    - { role: geerlingguy.adminer, when: '"adminer" in extra_features' }
-    - { role: geerlingguy.mailhog, when: '"mailhog" in extra_features' }
     - drupal
     - cron
 
   tasks:
-    - include: tasks/adminer.yml
-      when: '"adminer" in extra_features'
-    - include: tasks/www.yml
-
     - name: Run configured post-provision shell scripts.
       script: "{{ item }}"
       with_items: "{{ post_provision_scripts }}"

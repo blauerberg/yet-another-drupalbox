@@ -1,0 +1,16 @@
+---
+
+# Solr version
+solr_version: 4.9.1
+
+# Solr install path
+solr_install_path: /var/lib/solr
+
+# Apache Solr module version to get solr scheme for Drupal
+apachesolr_module_version: 7.x-1.8
+
+# Tika version
+tika_version: 1.14
+
+# Tika install path
+tika_install_path: /var/lib/tika

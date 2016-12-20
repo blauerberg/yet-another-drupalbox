@@ -1,13 +1,14 @@
 ---
 - stat: path={{ drush_path }}
   register: drush
-
+ 
 - block:
-  - command: "composer global require drush/drush:{{ drush_version }}"
-  - file: src=~/.composer/vendor/bin/drush
-          dest={{ drush_path }}
-          state=link
+  - git: repo=https://github.com/drush-ops/drush.git
+         version={{ drush_version }}
+         dest=/usr/local/src/drush
+         accept_hostkey=yes
+  - command: composer install chdir=/usr/local/src/drush
+  - file: src=/usr/local/src/drush/drush dest={{ drush_path }} state=link
   - command: "{{ drush_path }} init -y"
-
   when: not drush.stat.exists
   become: yes

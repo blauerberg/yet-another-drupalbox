@@ -2,7 +2,7 @@
 - name: Enable nginx repository
   package: name=http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
   ignore_errors: True # FIXME
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat' and ansible_distribution != 'Amazon'
 
 - name: Install nginx
   package: name=nginx state=present
