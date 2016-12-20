@@ -115,6 +115,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     override.ssh.username = "ec2-user"
     override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
+    if !vconfig[:user_data_path].nil? and File.exist? vconfig[:user_data_path]
+      aws.user_data = File.read vconfig[:user_data_path]
+    end
   end
 
   config.vm.provider :azure do |azure, override|
