@@ -41,12 +41,14 @@ digitalocean_backup_enabled: false
 # AWS configuration
 aws:
   keypair_name: 'YOUR_KEYPAIR_NAME'
-  ami: 'ami-374db956'
+  ami: 'ami-0c11b26d' # see https://aws.amazon.com/amazon-linux-ami/
   aws_profile: 'default'
   region: 'ap-northeast-1'
   instance_type: 't2.nano'
   ssh_host_attribute: 'public_ip_address'
   monitoring: true
+  #elastic_ip: true
+  #iam_instance_profile_name: 'YOUR_IAM_ROLE_NAME'
   tags:
     Name: 'yet-another-drupalbox'
   # more options: https://github.com/mitchellh/vagrant-aws#configuration
