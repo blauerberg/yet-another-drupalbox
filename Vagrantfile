@@ -85,7 +85,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.cache.scope = :box
       end
     end
-  end
+
+    if Vagrant.has_plugin?('vagrant-hostmanager')
+      aliases = []
+      aliases.concat(config.vm.hostname.split)
+      vconfig[:nginx_hosts].each do |host|
+        aliases.concat(host['server_name'].split)
+      end
+      if vconfig[:extra_features].include? 'mautic'
+        aliases.push(vconfig[:mautic_site_name])
+      end
+
+      aliases = aliases.uniq - [config.vm.hostname]
+
+      config.hostmanager.enabled = true
+      config.hostmanager.manage_host = true
+      config.hostmanager.aliases = aliases
+    end
+ end
 
   config.vm.define vconfig[:vagrant_machine_name] do |droplet|
     droplet.vm.provider :digital_ocean do |provider, override|
@@ -136,23 +153,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
     override.ssh.pty = true
     override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
-  end
-
-  if Vagrant.has_plugin?('vagrant-hostmanager')
-    aliases = []
-    aliases.concat(config.vm.hostname.split)
-    vconfig[:nginx_hosts].each do |host|
-      aliases.concat(host['server_name'].split)
-    end
-    if vconfig[:extra_features].include? 'mautic'
-      aliases.push(vconfig[:mautic_site_name])
-    end
-
-    aliases = aliases.uniq - [config.vm.hostname]
-
-    config.hostmanager.enabled = true
-    config.hostmanager.manage_host = true
-    config.hostmanager.aliases = aliases
   end
 
   if File.exist? vconfig[:vagrant_ssh_public_key_path]
