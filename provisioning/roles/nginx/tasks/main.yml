@@ -17,6 +17,9 @@
       - default.conf
       - example_ssl.conf
   
+  - name: Copy nginx base configuration
+    template: src=amazon-linux/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+
   - name: Copy nginx configuration for drupal
     template: src=drupal_simple.conf.j2 dest={{ nginx_vhost_path }}/{{ drupal_site_name }}.conf
     notify: restart webserver

@@ -49,7 +49,7 @@
     - php70-xml
     - php70-gd
     - php70-mysqlnd
-    - php70-jsonc
+    - php70-json
     - php70-mcrypt
     - php70-ldap
     - php70-opcache
