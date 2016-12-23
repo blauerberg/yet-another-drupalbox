@@ -7,6 +7,8 @@ This project was inspired by [Drupal VM](https://github.com/geerlingguy/drupal-v
 Currently, work with below environments:
 - CentOS 7.x on Virtualbox
 - CentOS 7.x on DigitalOcean
+- CentOS 7.x on AWS
+- Amazon Linux on AWS
 
 ## Getting Started
 
