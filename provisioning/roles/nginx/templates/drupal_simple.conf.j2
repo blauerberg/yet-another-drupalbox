@@ -4,8 +4,8 @@ server {
     listen 80 default_server;
     root {{ drupal_root_path }};
 
-    access_log /var/log/nginx/{{ drupal_site_name }}-access.log;
-    error_log /var/log/nginx/{{ drupal_site_name }}-error.log;
+    access_log /var/log/nginx/{{ drupal_site_name }}_access.log;
+    error_log /var/log/nginx/{{ drupal_site_name }}_error.log;
 
     client_max_body_size 16m;
 
