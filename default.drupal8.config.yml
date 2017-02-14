@@ -70,7 +70,7 @@ drupal_site_install: true
 
 # Which version of Drupal to deploy
 drupal_major_version: 8
-drupal_version: 8.2.3
+drupal_version: 8.2.6
 
 # options for drupal installation
 drupal_on_synced_folder: true
