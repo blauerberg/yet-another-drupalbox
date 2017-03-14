@@ -2,7 +2,7 @@
 vagrant_box: centos/7
 vagrant_username: vagrant
 vagrant_hostname: yet-another-drupalbox.local
-vagrant_machine_name: yet-another-drupalbox
+vagrant_machine_name: yet-another-drupalbox.local
 
 # see: https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html
 vagrant_ssh_private_key_path: ~/.ssh/id_rsa
