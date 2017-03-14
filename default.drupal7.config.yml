@@ -63,6 +63,26 @@ azure:
   vm_size: 'Standard_A0'
   # more options: https://github.com/Azure/vagrant-azure
 
+# Google Compute Engine configuation
+google:
+  # you can see images at https://console.cloud.google.com/compute/imagesDetail/projects/centos-cloud/global/images/
+  image: 'centos-7-v20170227'
+  machine_type: 'n1-standard-1'
+  # instance_group: YOUR_INSTANCE_GROUP
+  # disk_size: 10
+  # disk_type: pd-ssd
+  # name: 'YOUR_INSTANCE_NAME'
+  tags:
+    - http-server
+    - https-server
+  zone: asia-northeast1-c
+  # preemptible: true
+  scopes:
+    - bigquery
+    - monitoring
+    - https://www.googleapis.com/auth/compute
+  # more options: https://github.com/mitchellh/vagrant-google
+
 # Cloud init
 # user_data_path: /Users/username/cloud-init/user_data.yml
 

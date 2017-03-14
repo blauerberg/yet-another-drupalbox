@@ -155,6 +155,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
   end
 
+  config.vm.provider :google do |google, override|
+    override.vm.box = "google/gce"
+
+    google.google_project_id = ENV['GOOGLE_PROJECT']
+    google.google_client_email = ENV['GOOGLE_CLIENT_EMAIL']
+    google.google_json_key_location = ENV['GOOGLE_APPLICATION_CREDENTIALS']
+    override.ssh.username = ENV['GOOGLE_USERNAME']
+    override.ssh.private_key_path = vconfig[:vagrant_ssh_private_key_path]
+
+    google_config = vconfig[:google]
+    google_config.each do |k,v|
+      google.send("#{k}=", v)
+    end
+  end
+
   if File.exist? vconfig[:vagrant_ssh_public_key_path]
     config.vm.provision "file",
       source: vconfig[:vagrant_ssh_public_key_path],
