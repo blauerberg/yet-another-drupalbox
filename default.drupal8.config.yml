@@ -58,7 +58,8 @@ azure:
   resource_group_name: 'YOUR_RESOURCE_GROUP_NAME'
   location: 'japaneast'
   vm_name: 'yet-another-drupalbox'
-  vm_image_urn: 'OpenLogic:CentOS:7.2n:7.2.20160629' # see https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-cli-ps-findimage/
+  # you can see image urn at https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-cli-ps-findimage/
+  vm_image_urn: 'OpenLogic:CentOS:7.2n:7.2.20160629'
   vm_size: 'Standard_A0'
   # more options: https://github.com/Azure/vagrant-azure
 
