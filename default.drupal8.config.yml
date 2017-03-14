@@ -153,7 +153,7 @@ nodejs_npm_global_packages:
 
 # Mautic
 mautic_root_path: /var/www/mautic
-mautic_version: 2.1.1
+mautic_version: 2.7.1
 mautic_site_name: "mautic.{{ vagrant_hostname }}"
 mautic_database_host: localhost
 mautic_database_port: 3306

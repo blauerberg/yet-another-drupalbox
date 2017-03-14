@@ -30,6 +30,9 @@
 
   - name: Composer install
     command: composer install chdir={{ mautic_root_path }}
+    # mautic always require .git dir on post-install, maybe it's a bug.
+    # see also: https://github.com/mautic/mautic/commit/ad992c2f27cbef554e262bfa8c55e20f3bab7f87
+    ignore_errors: true
 
   - name: Change ownership of Mautic installation
     file: path={{ mautic_root_path }} owner=nginx group=nginx state=directory recurse=yes
