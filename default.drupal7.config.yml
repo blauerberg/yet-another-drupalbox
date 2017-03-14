@@ -110,17 +110,13 @@ drupal_database_password: drupal
 drupal_extra_modules:
   - admin_menu
   - admin_views
-  - better_exposed_filters
   - ctools
-  - custom_formatters
   - date
   - devel
-  - diff
   - ds
   - email
   - entity
   - entityreference
-  - entityreference_prepopulate
   - extlink
   - field_group
   - jquery_update
@@ -129,10 +125,8 @@ drupal_extra_modules:
   - link
   - markdown
   - masquerade
-  - module_filter
   - node_clone
   - panels
-  - panels_everywhere
   - rules
   - token
   - views
