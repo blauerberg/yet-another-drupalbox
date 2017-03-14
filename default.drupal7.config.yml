@@ -114,7 +114,6 @@ drupal_extra_modules:
   - panels
   - panels_everywhere
   - rules
-  - shield
   - token
   - views
   - views_bulk_operations
