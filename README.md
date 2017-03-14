@@ -8,6 +8,7 @@ Currently, work with below environments:
 - CentOS 7.x on Virtualbox
 - CentOS 7.x on DigitalOcean
 - CentOS 7.x on AWS
+- CentOS 7.x on Google Compute Engine
 - Amazon Linux on AWS
 
 ## Getting Started
