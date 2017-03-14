@@ -3,7 +3,7 @@
   register: swap
 
 - block:
-  - command: fallocate -l 2G /var/swap
+  - command: dd if=/dev/zero of=/var/swap count=2048 bs=1MiB
   - command: chmod 600 /var/swap
   - command: mkswap /var/swap
   - command: swapon /var/swap
