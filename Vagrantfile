@@ -122,7 +122,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider :aws do |aws, override|
-    override.vm.box = "dummy"
+    override.vm.box = "aws"
     aws.access_key_id = ENV['VAGRANT_AWS_ACCESS_KEY_ID']
     aws.secret_access_key = ENV['VAGRANT_AWS_SECRECT_ACCEESS_KEY']
     aws_config = vconfig[:aws]
