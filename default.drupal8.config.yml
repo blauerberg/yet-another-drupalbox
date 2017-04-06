@@ -140,6 +140,7 @@ drupalconsole_version: 1.0.0-rc10
 extra_features:
   #- drupalconsole
   - nodejs
+  #- awscli
   #- solr # Sorry, currently does not support solr with Drupal8.
   #- mautic
 
@@ -171,6 +172,12 @@ extra_packages:
   - tmux
   - cpulimit
   - gitflow # if you use Amazon Linux, comment out this line
+
+# awscli
+awscli_output_format: "json"
+awscli_region: "ap-northeast-1"
+awscli_access_key_id: "THE_ACCESS_KEY_ID"
+awscli_secret_access_key: "THE_SECRET_KEY_ID"
 
 # Timezone
 timezone: Asia/Tokyo
