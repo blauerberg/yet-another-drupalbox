@@ -170,7 +170,7 @@ extra_packages:
   - htop
   - vim
   - tmux
-  - cpulimit
+  - cpulimit # if you use Amazon Linux, comment out this line
   - gitflow # if you use Amazon Linux, comment out this line
 
 # awscli

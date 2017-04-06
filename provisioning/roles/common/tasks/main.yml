@@ -2,6 +2,7 @@
 - name: Set timezone
   timezone:
     name: "{{ timezone }}"
+  when: ansible_distribution != 'Amazon'
 
 - name: Enable epel repository
   package: name=epel-release state=present
