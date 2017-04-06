@@ -200,6 +200,7 @@ extra_packages:
   - htop
   - vim
   - tmux
+  - cpulimit
   - gitflow # if you use Amazon Linux, comment out this line
 
 # Timezone
