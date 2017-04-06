@@ -168,6 +168,7 @@ extra_packages:
   - unzip
   - htop
   - vim
+  - tmux
   - gitflow # if you use Amazon Linux, comment out this line
 
 # Timezone
