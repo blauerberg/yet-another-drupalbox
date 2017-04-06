@@ -1,4 +1,8 @@
 ---
+- name: Set timezone
+  timezone:
+    name: {{ timezone }}
+
 - name: Enable epel repository
   package: name=epel-release state=present
   when: ansible_os_family == 'RedHat'

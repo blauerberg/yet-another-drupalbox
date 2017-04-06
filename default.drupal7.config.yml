@@ -202,6 +202,9 @@ extra_packages:
   - gitflow # if you use Amazon Linux, comment out this line
   - ctags
 
+# Timezone
+timezone: Asia/Tokyo
+
 # Cron jobs are added to the root user's crontab. Keys include name (required),
 # minute, hour, day, weekday, month, job (required), and state.
 cron_jobs: []
