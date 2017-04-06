@@ -200,7 +200,6 @@ extra_packages:
   - htop
   - vim
   - gitflow # if you use Amazon Linux, comment out this line
-  - ctags
 
 # Timezone
 timezone: Asia/Tokyo
