@@ -7,6 +7,10 @@ server {
     access_log /var/log/nginx/{{ drupal_site_name }}_access.log;
     error_log /var/log/nginx/{{ drupal_site_name }}_error.log;
 
+    gzip on;
+    gzip_vary on;
+    gzip_types text/css text/javascript application/javascript image/svg+xml;
+
     client_max_body_size 16m;
 
     location = /favicon.ico {
@@ -103,8 +107,15 @@ server {
         try_files $uri /index.php?$query_string;
     }
 
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
-        expires max;
+    location ~* \.(js|css|svg)$ {
+        expires 7d;
+        log_not_found off;
+        gzip_static always;
+        gunzip on;
+    }
+
+    location ~* \.(png|jpg|jpeg|gif|ico)$ {
+        expires 7d;
         log_not_found off;
     }
 }
