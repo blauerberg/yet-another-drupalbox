@@ -26,8 +26,8 @@ server {
         deny all;
     }
 
-    location = /README.md {
-        deny all;
+    location ~* /(README.md|bitbucket-pipelines.yml|wercker.yml|.travis.yml) {
+        return 404;
     }
 
     location ~ \..*/.*\.php$ {
