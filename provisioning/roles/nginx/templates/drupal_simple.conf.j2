@@ -107,6 +107,10 @@ server {
         try_files $uri /index.php?$query_string;
     }
 
+    location ~ ^/sites/.*/files/(css|js)/optimized {
+        add_header Cache-Control 'public, max-age=31536000, immutable';
+    }
+
     location ~* \.(js|css|svg)$ {
         expires 7d;
         log_not_found off;
